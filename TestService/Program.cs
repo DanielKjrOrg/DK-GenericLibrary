@@ -14,8 +14,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<RepoTestService>();
+builder.Services.AddTransient<AsyncRepoTestService>();
 
 builder.Services.AddTransient<Repository<TestContext>>();
+builder.Services.AddTransient<AsyncRepository<TestContext>>();
 builder.Services.AddDbContextFactory<TestContext>();
 
 
