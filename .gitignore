@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+TestService/Properties/launchSettings.json
+*.db
+/TestService/testdb.db
+/TestService/testdb.db-shm
+/TestService/testdb.db-wal
+/.editorconfig
