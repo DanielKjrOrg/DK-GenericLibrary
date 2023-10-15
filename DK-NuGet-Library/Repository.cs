@@ -5,15 +5,25 @@ using System.Linq.Expressions;
 
 namespace DK_NuGet_Library
 {
+
+	/// <summary>
+	/// Provides the implementation of the IRepository interface
+	/// </summary>
+	/// <typeparam name="TContext"></typeparam>
 	public class Repository<TContext> : IRepository<TContext> where TContext : DbContext
 	{
 		private readonly IDbContextFactory<TContext> _dbContextFactory;
 
+		/// <summary>
+		/// Uses IDbContextFactory to create context instances
+		/// </summary>
+		/// <param name="dbContextFactory"></param>
 		public Repository(IDbContextFactory<TContext> dbContextFactory)
 		{
 			_dbContextFactory = dbContextFactory;
 		}
 
+		/// <inheritdoc/>
 		public void AddItem<TEntity>(TEntity entity) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -23,7 +33,7 @@ namespace DK_NuGet_Library
 			}
 
 		}
-
+		/// <inheritdoc/>
 		public void AddItems<TEntity>(List<TEntity> entities) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -34,7 +44,7 @@ namespace DK_NuGet_Library
 
 		}
 
-
+		/// <inheritdoc/>
 		public void RemoveItem<TEntity>(TEntity entity) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -44,7 +54,7 @@ namespace DK_NuGet_Library
 			}
 
 		}
-
+		/// <inheritdoc/>
 		public void RemoveItem<TEntity>(Expression<Func<TEntity, bool>> searchExpression) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -59,7 +69,7 @@ namespace DK_NuGet_Library
 			}
 
 		}
-
+		/// <inheritdoc/>
 		public void RemoveItems<TEntity>(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryOperation) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -70,7 +80,7 @@ namespace DK_NuGet_Library
 			}
 
 		}
-
+		/// <inheritdoc/>
 		public void RemoveItems<TEntity>(List<TEntity> itemsToRemove) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -82,7 +92,7 @@ namespace DK_NuGet_Library
 				context.SaveChanges();
 			}
 		}
-
+		/// <inheritdoc/>
 		public TEntity GetItem<TEntity>(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryOperation) where TEntity: class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -90,7 +100,7 @@ namespace DK_NuGet_Library
 				return queryOperation(context.Set<TEntity>()).FirstOrDefault()!;
 			}
 		}
-
+		/// <inheritdoc/>
 		public List<TEntity> GetAllItems<TEntity>(Func<IQueryable<TEntity>, IQueryable<TEntity>>? queryOperation = null) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -100,7 +110,7 @@ namespace DK_NuGet_Library
 					: context.Set<TEntity>().ToList();
 			}
 		}
-
+		/// <inheritdoc/>
 		public List<T> GetAllForColumn<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -108,7 +118,7 @@ namespace DK_NuGet_Library
 				return queryOperation(context.Set<TEntity>()).ToList();
 			}
 		}
-
+		/// <inheritdoc/>
 		public void UpdateItem<TEntity>(TEntity item) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -129,7 +139,7 @@ namespace DK_NuGet_Library
 			}
 		}
 
-
+		/// <inheritdoc/>
 		public void UpdateItems<TEntity>(List<TEntity> items) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -155,7 +165,7 @@ namespace DK_NuGet_Library
 
 
 
-		public void UpdateCollection<TEntity>(List<TEntity> oldList, List<TEntity> newList, Comparer<TEntity> comparer) where TEntity : class
+		private void UpdateCollection<TEntity>(List<TEntity> oldList, List<TEntity> newList, Comparer<TEntity> comparer) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
 			{

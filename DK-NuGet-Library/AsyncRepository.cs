@@ -13,9 +13,9 @@ namespace DK_NuGet_Library
 	{
 		private readonly IDbContextFactory<TContext> _dbContextFactory;
 
-	
+
 		/// <summary>
-		/// Provides the implementation of IAsyncRepository
+		/// Uses IDbContextFactory to create context instances
 		/// </summary>
 		/// <param name="dbContextFactory"></param>
 		public AsyncRepository(IDbContextFactory<TContext> dbContextFactory)
@@ -28,7 +28,7 @@ namespace DK_NuGet_Library
 		{
 			using (var context = await _dbContextFactory.CreateDbContextAsync())
 			{
-				await context.Set<TEntity>().AddAsync(entity);
+				context.Set<TEntity>().Add(entity);
 				await context.SaveChangesAsync();
 			}
 			
@@ -40,7 +40,7 @@ namespace DK_NuGet_Library
 			{
 				foreach (TEntity entity in entities)
 				{
-					await context.Set<TEntity>().AddAsync(entity);
+					 context.Set<TEntity>().Add(entity);
 				}
 				await context.SaveChangesAsync();
 			}
