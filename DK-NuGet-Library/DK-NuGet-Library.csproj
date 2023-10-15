@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -6,9 +6,22 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>DK-GenericRepositories</Title>
+    <Description>Generic repositories to handle EntityFramework interactions.</Description>
+    <PackageIcon>711305172806008933.png</PackageIcon>
+	<icon>711305172806008933.png</icon>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Version>1.0.2</Version>
+    <Authors>DanielKjr</Authors>
+    <Product>GenericRepositories</Product>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\..\..\Desktop\Clip Studio\emotes\711305172806008933.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 

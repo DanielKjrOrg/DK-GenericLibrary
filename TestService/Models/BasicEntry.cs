@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestService.Models
 {
 	[Table("Entries")]
-	public class BasicEntry 
+	public class BasicEntry
 	{
 		[Key]
 		[Column("BasicEntryId")]
@@ -15,7 +15,7 @@ namespace TestService.Models
 
 		public string? ValueToLoad { get; set; }
 
-	
+
 
 	}
 }

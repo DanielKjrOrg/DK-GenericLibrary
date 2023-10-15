@@ -45,7 +45,7 @@ namespace TestService.Controllers
 
 		[HttpPost]
 		[Route("new")]
-		public async Task AddItem([FromBody]BasicClass entry)
+		public async Task AddItem([FromBody] BasicClass entry)
 		{
 			await _repoTestService.AddItem(entry);
 		}

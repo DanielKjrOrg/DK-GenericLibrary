@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using DK_NuGet_Library.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
-using DK_NuGet_Library.Interfaces;
 
 namespace DK_NuGet_Library
 {
@@ -31,7 +31,7 @@ namespace DK_NuGet_Library
 				context.Set<TEntity>().Add(entity);
 				await context.SaveChangesAsync();
 			}
-			
+
 		}
 		/// <inheritdoc/>
 		public async Task AddItems<TEntity>(List<TEntity> entities) where TEntity : class
@@ -40,7 +40,7 @@ namespace DK_NuGet_Library
 			{
 				foreach (TEntity entity in entities)
 				{
-					 context.Set<TEntity>().Add(entity);
+					context.Set<TEntity>().Add(entity);
 				}
 				await context.SaveChangesAsync();
 			}

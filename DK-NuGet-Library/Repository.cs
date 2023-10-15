@@ -93,7 +93,7 @@ namespace DK_NuGet_Library
 			}
 		}
 		/// <inheritdoc/>
-		public TEntity GetItem<TEntity>(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryOperation) where TEntity: class
+		public TEntity GetItem<TEntity>(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryOperation) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
 			{

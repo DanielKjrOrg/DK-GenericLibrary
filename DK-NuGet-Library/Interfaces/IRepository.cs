@@ -7,7 +7,7 @@ namespace DK_NuGet_Library.Interfaces
 	/// <summary>
 	/// Injectable generic interface that provides basic CRUD functionality and universal functions.
 	/// </summary>
-	/// <typeparam name="TContext"></typeparam>
+	/// <typeparam name="TContext">Class that derives from DbContext</typeparam>
 	public interface IRepository<TContext> where TContext : DbContext
 	{
 		/// <summary>
@@ -114,5 +114,5 @@ namespace DK_NuGet_Library.Interfaces
 		/// <param name="items"></param>
 		/// <returns></returns>
 		void UpdateItems<TEntity>(List<TEntity> items) where TEntity : class;
-		}
+	}
 }

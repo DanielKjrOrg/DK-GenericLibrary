@@ -1,8 +1,6 @@
-
 using DK_NuGet_Library;
 using DK_NuGet_Library.Interfaces;
 using TestService.Contexts;
-using TestService.Controllers;
 using TestService.Services;
 
 var builder = WebApplication.CreateBuilder(args);

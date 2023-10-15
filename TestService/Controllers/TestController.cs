@@ -100,7 +100,7 @@ namespace TestService.Controllers
 			_testService.DeleteEntries(amount);
 		}
 
-	
+
 
 		[HttpPatch]
 		[Route("update")]

@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestService.Models
 {
 	[Table("Classes")]
-	public class BasicClass 
+	public class BasicClass
 	{
 		[Key]
 		[Column("BasicClassId")]

@@ -1,5 +1,4 @@
-﻿using DK_NuGet_Library;
-using DK_NuGet_Library.Interfaces;
+﻿using DK_NuGet_Library.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using TestService.Contexts;
 using TestService.Models;
