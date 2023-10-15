@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DK_NuGet_Library.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
 namespace DK_NuGet_Library
 {
-	public class Repository<TContext> where TContext : DbContext
+	public class Repository<TContext> : IRepository<TContext> where TContext : DbContext
 	{
 		private readonly IDbContextFactory<TContext> _dbContextFactory;
 

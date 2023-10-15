@@ -1,4 +1,5 @@
 ﻿using DK_NuGet_Library;
+using DK_NuGet_Library.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using TestService.Contexts;
 using TestService.Models;
@@ -10,9 +11,9 @@ namespace TestService.Services
 		private static readonly string[] RandomQuotes = new string[5] { "People who annoy you", "Get in my belly", "Oh behave", "Get out of my swamp", "Made you look" };
 
 
-		private readonly Repository<TestContext> _repository;
+		private readonly IRepository<TestContext> _repository;
 
-		public RepoTestService(Repository<TestContext> repository)
+		public RepoTestService(IRepository<TestContext> repository)
 		{
 			_repository = repository;
 		}

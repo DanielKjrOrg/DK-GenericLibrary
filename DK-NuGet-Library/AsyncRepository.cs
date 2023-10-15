@@ -1,19 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-
+using DK_NuGet_Library.Interfaces;
 
 namespace DK_NuGet_Library
 {
-	public class AsyncRepository<TContext> where TContext : DbContext
+	/// <summary>
+	/// Provides the implementation of the IAsyncRepository interface
+	/// </summary>
+	/// <typeparam name="TContext"></typeparam>
+	public class AsyncRepository<TContext> : IAsyncRepository<TContext> where TContext : DbContext
 	{
 		private readonly IDbContextFactory<TContext> _dbContextFactory;
 
+	
+		/// <summary>
+		/// Provides the implementation of IAsyncRepository
+		/// </summary>
+		/// <param name="dbContextFactory"></param>
 		public AsyncRepository(IDbContextFactory<TContext> dbContextFactory)
 		{
 			_dbContextFactory = dbContextFactory;
 		}
 
+		/// <inheritdoc/>
 		public async Task AddItem<TEntity>(TEntity entity) where TEntity : class
 		{
 			using (var context = await _dbContextFactory.CreateDbContextAsync())
@@ -23,7 +33,7 @@ namespace DK_NuGet_Library
 			}
 			
 		}
-
+		/// <inheritdoc/>
 		public async Task AddItems<TEntity>(List<TEntity> entities) where TEntity : class
 		{
 			using (var context = await _dbContextFactory.CreateDbContextAsync())
@@ -37,7 +47,7 @@ namespace DK_NuGet_Library
 
 		}
 
-
+		/// <inheritdoc/>
 		public async Task RemoveItem<TEntity>(TEntity entity) where TEntity : class
 		{
 			using (var context = await _dbContextFactory.CreateDbContextAsync())
@@ -47,7 +57,7 @@ namespace DK_NuGet_Library
 			}
 
 		}
-
+		/// <inheritdoc/>
 		public async Task RemoveItem<TEntity>(Expression<Func<TEntity, bool>> searchExpression) where TEntity : class
 		{
 			using (var context = await _dbContextFactory.CreateDbContextAsync())
@@ -62,7 +72,7 @@ namespace DK_NuGet_Library
 			}
 
 		}
-
+		/// <inheritdoc/>
 		public async Task RemoveItems<TEntity>(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryOperation) where TEntity : class
 		{
 			using (var context = await _dbContextFactory.CreateDbContextAsync())
@@ -76,7 +86,7 @@ namespace DK_NuGet_Library
 			}
 
 		}
-
+		/// <inheritdoc/>
 		public async Task RemoveItems<TEntity>(List<TEntity> itemsToRemove) where TEntity : class
 		{
 			using (var context = await _dbContextFactory.CreateDbContextAsync())
@@ -88,7 +98,7 @@ namespace DK_NuGet_Library
 				await context.SaveChangesAsync();
 			}
 		}
-
+		/// <inheritdoc/>
 		public async Task<TEntity> GetItem<TEntity>(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryOperation) where TEntity : class
 		{
 			using (var context = await _dbContextFactory.CreateDbContextAsync())
@@ -96,7 +106,7 @@ namespace DK_NuGet_Library
 				return await Task.FromResult(queryOperation(context.Set<TEntity>()).FirstOrDefault()!);
 			}
 		}
-
+		/// <inheritdoc/>
 		public async Task<List<TEntity>> GetAllItems<TEntity>(Func<IQueryable<TEntity>, IQueryable<TEntity>>? queryOperation = null) where TEntity : class
 		{
 			using (var context = await _dbContextFactory.CreateDbContextAsync())
@@ -106,7 +116,7 @@ namespace DK_NuGet_Library
 					: context.Set<TEntity>().ToList());
 			}
 		}
-
+		/// <inheritdoc/>
 		public async Task<List<T>> GetAllForColumn<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
@@ -114,7 +124,7 @@ namespace DK_NuGet_Library
 				return await Task.FromResult(queryOperation(context.Set<TEntity>()).ToList());
 			}
 		}
-
+		/// <inheritdoc/>
 		public async Task UpdateItem<TEntity>(TEntity item) where TEntity : class
 		{
 			using (var context = await _dbContextFactory.CreateDbContextAsync())
@@ -135,7 +145,7 @@ namespace DK_NuGet_Library
 			}
 		}
 
-
+		/// <inheritdoc/>
 		public async Task UpdateItems<TEntity>(List<TEntity> items) where TEntity : class
 		{
 			using (var context = await _dbContextFactory.CreateDbContextAsync())
@@ -161,7 +171,7 @@ namespace DK_NuGet_Library
 
 
 
-		public void UpdateCollection<TEntity>(List<TEntity> oldList, List<TEntity> newList, Comparer<TEntity> comparer) where TEntity : class
+		private void UpdateCollection<TEntity>(List<TEntity> oldList, List<TEntity> newList, Comparer<TEntity> comparer) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
 			{

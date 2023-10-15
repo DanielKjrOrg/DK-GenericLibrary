@@ -1,5 +1,6 @@
 
 using DK_NuGet_Library;
+using DK_NuGet_Library.Interfaces;
 using TestService.Contexts;
 using TestService.Controllers;
 using TestService.Services;
@@ -16,8 +17,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<RepoTestService>();
 builder.Services.AddTransient<AsyncRepoTestService>();
 
-builder.Services.AddTransient<Repository<TestContext>>();
-builder.Services.AddTransient<AsyncRepository<TestContext>>();
+builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddTransient(typeof(IAsyncRepository<>), typeof(AsyncRepository<>));
 builder.Services.AddDbContextFactory<TestContext>();
 
 

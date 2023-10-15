@@ -1,4 +1,5 @@
 ﻿using DK_NuGet_Library;
+using DK_NuGet_Library.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using TestService.Contexts;
 using TestService.Models;
@@ -7,10 +8,10 @@ namespace TestService.Services
 {
 	public class AsyncRepoTestService
 	{
-		private readonly AsyncRepository<TestContext> _repository;
+		private readonly IAsyncRepository<TestContext> _repository;
 		private static readonly string[] RandomQuotes = new string[5] { "People who annoy you", "Get in my belly", "Oh behave", "Get out of my swamp", "Made you look" };
 
-		public AsyncRepoTestService(AsyncRepository<TestContext> repository)
+		public AsyncRepoTestService(IAsyncRepository<TestContext> repository)
 		{
 			_repository = repository;
 		}
