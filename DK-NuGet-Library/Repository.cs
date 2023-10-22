@@ -1,9 +1,9 @@
-﻿using DK_NuGet_Library.Interfaces;
+﻿using DK.GenericLibrary.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
-namespace DK_NuGet_Library
+namespace DK.GenericLibrary
 {
 
 	/// <summary>

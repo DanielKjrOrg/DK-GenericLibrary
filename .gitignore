@@ -367,3 +367,7 @@ TestService/Properties/launchSettings.json
 /TestService/testdb.db-shm
 /TestService/testdb.db-wal
 /.editorconfig
+
+.idea
+Migrations
+appSettings.Development

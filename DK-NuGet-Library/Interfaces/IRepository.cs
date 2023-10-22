@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 
 
-namespace DK_NuGet_Library.Interfaces
+namespace DK.GenericLibrary.Interfaces
 {
 	/// <summary>
 	/// Injectable generic interface that provides basic CRUD functionality and universal functions.

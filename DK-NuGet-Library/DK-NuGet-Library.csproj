@@ -2,19 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>DK_NuGet_Library</RootNamespace>
+    <RootNamespace>DKJ.GenericLibrary</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>DK-GenericRepositories</Title>
+    <Title>DK.GenericLibrary</Title>
     <Description>Generic repositories to handle EntityFramework interactions.</Description>
     <PackageIcon>711305172806008933.png</PackageIcon>
 	<icon>711305172806008933.png</icon>
-    <PackageId>$(AssemblyName)</PackageId>
-    <Version>1.0.2</Version>
+    <PackageId>DK.GenericLibrary</PackageId>
+    <Version>1.0.1</Version>
     <Authors>DanielKjr</Authors>
-    <Product>GenericRepositories</Product>
+    <Product>GenericLibrary</Product>
+    <AssemblyName>DKJ.GenericLibrary</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

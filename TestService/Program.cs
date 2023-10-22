@@ -1,5 +1,5 @@
-using DK_NuGet_Library;
-using DK_NuGet_Library.Interfaces;
+using DK.GenericLibrary;
+using DK.GenericLibrary.Interfaces;
 using TestService.Contexts;
 using TestService.Services;
 
