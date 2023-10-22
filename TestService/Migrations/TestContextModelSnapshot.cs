@@ -40,7 +40,7 @@ namespace TestService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Classes");
+                    b.ToTable("Classes", (string)null);
                 });
 
             modelBuilder.Entity("TestService.Models.BasicEntry", b =>
@@ -60,7 +60,7 @@ namespace TestService.Migrations
 
                     b.HasIndex("BasicClassId");
 
-                    b.ToTable("Entries");
+                    b.ToTable("Entries", (string)null);
                 });
 
             modelBuilder.Entity("TestService.Models.BasicEntry", b =>

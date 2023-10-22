@@ -17,5 +17,11 @@ namespace TestService.Models
 		public ICollection<BasicEntry> BasicEntries { get; set; } = new List<BasicEntry>();
 
 		public DateTime Oprettet { get; set; }
-	}
+
+        public BasicClass()
+        {
+            Id = Guid.NewGuid();
+			Oprettet = DateTime.Now;
+        }
+    }
 }
