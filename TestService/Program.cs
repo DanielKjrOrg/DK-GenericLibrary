@@ -1,5 +1,7 @@
 using DK.GenericLibrary;
 using DK.GenericLibrary.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Dynamic;
 using TestService.Contexts;
 using TestService.Services;
 
@@ -16,6 +18,7 @@ builder.Services.AddTransient<RepoTestService>();
 builder.Services.AddTransient<AsyncRepoTestService>();
 
 builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
 builder.Services.AddTransient(typeof(IAsyncRepository<>), typeof(AsyncRepository<>));
 builder.Services.AddDbContextFactory<TestContext>();
 
@@ -29,7 +32,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
-
+//TODO pt kan den ikke finde de tabeller der burde blive lavet som sqlite server når det er et docker image
 
 app.UseHttpsRedirection();
 

@@ -119,6 +119,12 @@ namespace DK.GenericLibrary
 			}
 		}
 		/// <inheritdoc/>
+		public List<T> GetAllForColumnStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct
+		{
+			using var context =  _dbContextFactory.CreateDbContext();
+			return queryOperation(context.Set<TEntity>()).ToList();
+		}
+		/// <inheritdoc/>
 		public void UpdateItem<TEntity>(TEntity item) where TEntity : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())

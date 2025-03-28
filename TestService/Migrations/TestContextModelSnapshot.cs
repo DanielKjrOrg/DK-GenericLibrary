@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestService.Contexts;
 
@@ -16,51 +15,47 @@ namespace TestService.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
 
             modelBuilder.Entity("TestService.Models.BasicClass", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("TEXT")
                         .HasColumnName("BasicClassId");
 
                     b.Property<DateTime>("Oprettet")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Refnr")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("TestField")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Classes", (string)null);
+                    b.ToTable("Classes");
                 });
 
             modelBuilder.Entity("TestService.Models.BasicEntry", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("TEXT")
                         .HasColumnName("BasicEntryId");
 
                     b.Property<Guid>("BasicClassId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ValueToLoad")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BasicClassId");
 
-                    b.ToTable("Entries", (string)null);
+                    b.ToTable("Entries");
                 });
 
             modelBuilder.Entity("TestService.Models.BasicEntry", b =>

@@ -13,14 +13,14 @@ namespace TestService.Contexts
 
 		public TestContext(IConfiguration configuration)
 		{
-			_connectionString = configuration["ConnectionStrings:DbContextServer"]!;
+			_connectionString = configuration["ConnectionStrings:DbContext"]!;
 
 		}
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			//optionsBuilder.UseSqlite(_connectionString);
-			optionsBuilder.UseSqlServer(_connectionString);
+			optionsBuilder.UseSqlite(_connectionString);
+			//optionsBuilder.UseSqlServer(_connectionString);
 			base.OnConfiguring(optionsBuilder);
 		}
 	}

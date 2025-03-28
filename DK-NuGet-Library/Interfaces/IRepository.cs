@@ -98,6 +98,18 @@ namespace DK.GenericLibrary.Interfaces
 		/// <param name="queryOperation"></param>
 		/// <returns>List{T}</returns>
 		List<T> GetAllForColumn<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class;
+		/// <summary>
+		/// Returns T from DbSet matching type parameter.
+		/// <para>Used to retrieve struct data types</para>
+		/// <para>
+		/// <![CDATA[Example: _repository.GetAllForColumn<TEntity, int>(q => q.Select(x => x.PropertyName))]]>
+		/// </para>
+		/// </summary>
+		/// <typeparam name="TEntity"></typeparam>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="queryOperation"></param>
+		/// <returns></returns>
+		List<T> GetAllForColumnStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct;
 
 		/// <summary>
 		/// Changes TEntity reference and its' collections EntityState to Modified

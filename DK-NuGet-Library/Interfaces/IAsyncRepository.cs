@@ -5,9 +5,22 @@ using System.Linq.Expressions;
 namespace DK.GenericLibrary.Interfaces
 {
 	/// <summary>
-	/// Injectable generic interface that provides basic CRUD functionality and universal functions.
+	/// Interface providing generic async methods for interacting with EF Core's DbContext.
+	/// <para>
+	/// Must be registered as a service in Startup.cs using one of the provided AddTransient, AddScoped, AddSingleton versions Example:
+	/// <![CDATA[
+	/// builder.Services.AddTransientAsyncRepository<TestContext>();
+	/// ]]>
+	/// </para>
+	/// <para>
+	/// Alongside a DbContext factory:
+	/// <![CDATA[
+	/// builder.Services.AddDbContextFactory<YourContext>();
+	/// ]]>
+	/// </para>
 	/// </summary>
-	/// <typeparam name="TContext">Class that derives from DbContext</typeparam>
+	/// <typeparam name="TContext">The DbContext type</typeparam>
+
 	public interface IAsyncRepository<TContext> where TContext : DbContext
 	{
 		/// <summary>
@@ -36,10 +49,10 @@ namespace DK.GenericLibrary.Interfaces
 
 		/// <summary>
 		/// Removes a TEntity matching the provided searchExpression from the DbSet matching type parameter
+		/// <para>
+		/// <![CDATA[Example: _repository.RemoveItem<TEntity>(x => x.Id == 222);]]>
+		/// </para>
 		/// </summary>
-		/// <example>
-		/// _repository.RemoveItem{TEntity}(x => x.Id == 222);
-		/// </example>
 		/// <typeparam name="TEntity">Entity that exists in a DbSet</typeparam>
 		/// <param name="searchExpression">Lambda expression</param>
 		/// <returns></returns>
@@ -47,10 +60,10 @@ namespace DK.GenericLibrary.Interfaces
 
 		/// <summary>
 		/// Removes all TEntities that match the provided queryOperation from the DbSet matching type parameter
+		/// <para>
+		/// <![CDATA[Example: _repository.RemoveItems<TEntity>(query => query.Where(x => x.Age == 5));]]>
+		/// </para>
 		/// </summary>
-		/// <example>
-		/// _repository.RemoveItems{TEntity}(query => query.Where(x => x.Age == 5));
-		/// </example>
 		/// <typeparam name="TEntity"></typeparam>
 		/// <param name="queryOperation">IQueryable expression</param>
 		/// <returns></returns>
@@ -66,6 +79,9 @@ namespace DK.GenericLibrary.Interfaces
 
 		/// <summary>
 		/// Returns the TEntity matching the queryOperation from the DbSet matching type parameters
+		/// <para>
+		/// <![CDATA[Example: _repository.GetItem<TEntity>(query => query.Where(x => x.ID == 201023));]]>
+		/// </para>
 		/// </summary>
 		/// <typeparam name="TEntity"></typeparam>
 		/// <param name="queryOperation">IQueryable expression</param>
@@ -77,10 +93,10 @@ namespace DK.GenericLibrary.Interfaces
 		/// <para>
 		/// Returns TEntity list of entries matching queryOperation when optional parameter is used.
 		/// </para>
+		/// <para>
+		/// <![CDATA[Example: _repository.GetAllItems<TEntity>(query => query.Where(x=> x.Age == 4));]]>
+		/// </para>
 		/// </summary>
-		/// <example>
-		/// _repository.GetAllItems{TEntity}(query => query.Where(x=> x.Age == 4))
-		/// </example>
 		/// <typeparam name="TEntity"></typeparam>
 		/// <param name="queryOperation">Optional IQueryable expression</param>
 		/// <returns>List{TEntity}</returns>
@@ -89,15 +105,28 @@ namespace DK.GenericLibrary.Interfaces
 		/// <summary>
 		/// Returns T from DbSet matching type parameter.
 		/// <para>Used to retrieve a specific column</para>
+		/// <para>
+		/// <![CDATA[Example: _repository.GetAllForColumn<TEntity, string>(q => q.Select(x => x.PropertyName))]]>
+		/// </para>
 		/// </summary>
-		/// <example>
-		/// _repository.GetAllForColumn{TEntity, string}(q => q.Select(x => x.Comment))
-		/// </example>
 		/// <typeparam name="TEntity">TEntity that is in a DbSet</typeparam>
 		/// <typeparam name="T">Expected return type</typeparam>
 		/// <param name="queryOperation">IQueryable expression</param>
 		/// <returns>List{T}</returns>
 		Task<List<T>> GetAllForColumn<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class;
+
+		/// <summary>
+		/// Returns T from DbSet matching type parameter.
+		/// <para>Used to retrieve struct data types</para>
+		/// <para>
+		/// <![CDATA[Example: _repository.GetAllForColumn<TEntity, int>(q => q.Select(x => x.PropertyName))]]>
+		/// </para>
+		/// </summary>
+		/// <typeparam name="TEntity"></typeparam>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="queryOperation"></param>
+		/// <returns></returns>
+		Task<List<T>> GetAllForColumnStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct;
 
 		/// <summary>
 		/// Changes TEntity reference and its' collections EntityState to Modified
@@ -114,5 +143,8 @@ namespace DK.GenericLibrary.Interfaces
 		/// <param name="items">List of tracked TEntities</param>
 		/// <returns></returns>
 		Task UpdateItems<TEntity>(List<TEntity> items) where TEntity : class;
+
+
 	}
 }
+
