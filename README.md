@@ -1,5 +1,5 @@
 # Readme is a work in progress
-
+# Now officially hosted publicly https://www.nuget.org/packages/DK.GenericLibrary/1.0.3
 # How to use
 ### ASP.Net core
 Register services
