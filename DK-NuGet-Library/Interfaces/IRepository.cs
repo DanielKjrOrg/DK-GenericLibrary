@@ -97,7 +97,7 @@ namespace DK.GenericLibrary.Interfaces
 		/// <typeparam name="T"></typeparam>
 		/// <param name="queryOperation"></param>
 		/// <returns>List{T}</returns>
-		List<T> GetAllForColumn<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class;
+		List<T> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class;
 		/// <summary>
 		/// Returns T from DbSet matching type parameter.
 		/// <para>Used to retrieve struct data types</para>
@@ -109,10 +109,10 @@ namespace DK.GenericLibrary.Interfaces
 		/// <typeparam name="T"></typeparam>
 		/// <param name="queryOperation"></param>
 		/// <returns></returns>
-		List<T> GetAllForColumnStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct;
+		List<T>GetAllItemsStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct;
 
 		/// <summary>
-		/// Changes TEntity reference and its' collections EntityState to Modified
+		/// Changes TEntity reference and its' collections EntityState to Modified. Note that it will only catch 1 nested collection, anything past that can be put directly as a parameter as ut us a TEntity
 		/// </summary>
 		/// <typeparam name="TEntity"></typeparam>
 		/// <param name="item"></param>
@@ -120,7 +120,7 @@ namespace DK.GenericLibrary.Interfaces
 		void UpdateItem<TEntity>(TEntity item) where TEntity : class;
 
 		/// <summary>
-		/// Changes TEntity references and their collections EntityState to Modified
+		/// Changes TEntity references and their collections EntityState to Modified. Note that it will only catch 1 nested collection, anything past that can be put directly as a parameter as ut us a TEntity
 		/// </summary>
 		/// <typeparam name="TEntity"></typeparam>
 		/// <param name="items"></param>

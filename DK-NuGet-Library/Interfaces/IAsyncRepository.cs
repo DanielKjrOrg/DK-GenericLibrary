@@ -20,7 +20,6 @@ namespace DK.GenericLibrary.Interfaces
 	/// </para>
 	/// </summary>
 	/// <typeparam name="TContext">The DbContext type</typeparam>
-
 	public interface IAsyncRepository<TContext> where TContext : DbContext
 	{
 		/// <summary>
@@ -113,7 +112,7 @@ namespace DK.GenericLibrary.Interfaces
 		/// <typeparam name="T">Expected return type</typeparam>
 		/// <param name="queryOperation">IQueryable expression</param>
 		/// <returns>List{T}</returns>
-		Task<List<T>> GetAllForColumn<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class;
+		Task<List<T>> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class;
 
 		/// <summary>
 		/// Returns T from DbSet matching type parameter.
@@ -126,10 +125,10 @@ namespace DK.GenericLibrary.Interfaces
 		/// <typeparam name="T"></typeparam>
 		/// <param name="queryOperation"></param>
 		/// <returns></returns>
-		Task<List<T>> GetAllForColumnStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct;
+		Task<List<T>> GetAllItemsStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct;
 
 		/// <summary>
-		/// Changes TEntity reference and its' collections EntityState to Modified
+		/// Changes TEntity reference and its' collections EntityState to Modified. Note that it will only catch 1 nested collection, anything past that can be put directly as a parameter as ut us a TEntity
 		/// </summary>
 		/// <typeparam name="TEntity"></typeparam>
 		/// <param name="item">Tracked TEntity</param>
@@ -137,7 +136,7 @@ namespace DK.GenericLibrary.Interfaces
 		Task UpdateItem<TEntity>(TEntity item) where TEntity : class;
 
 		/// <summary>
-		/// Changes TEntity references and their collections EntityState to Modified
+		/// Changes TEntity references and their collections EntityState to Modified. Note that it will only catch 1 nested collection, anything past that can be put directly as a parameter as it is a TEntity
 		/// </summary>
 		/// <typeparam name="TEntity"></typeparam>
 		/// <param name="items">List of tracked TEntities</param>

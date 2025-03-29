@@ -25,9 +25,11 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
   </ItemGroup>
 
+
+
   <ItemGroup>
-    <Reference Include="DKJ.GenericLibrary">
-      <HintPath>..\DK-NuGet-Library\bin\Release\net8.0\DKJ.GenericLibrary.dll</HintPath>
+    <Reference Include="DK.GenericLibrary">
+      <HintPath>..\DK-NuGet-Library\bin\Release\net8.0\DK.GenericLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 

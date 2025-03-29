@@ -30,7 +30,7 @@ namespace TestService.Services
 
 		public List<string> GetColumn()
 		{
-			return _repository.GetAllForColumn<BasicClass, string>(q => q.Select(x => x.TestField)!);
+			return _repository.GetAllItems<BasicClass, string>(q => q.Select(x => x.TestField)!);
 		}
 
 		public List<BasicClass> GetEntriesWithCollection()

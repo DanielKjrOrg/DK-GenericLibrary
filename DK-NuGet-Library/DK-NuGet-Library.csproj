@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>DKJ.GenericLibrary</RootNamespace>
+    <RootNamespace>DK.GenericLibrary</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -14,7 +14,7 @@
     <Version>1.0.3</Version>
     <Authors>DanielKjr</Authors>
     <Product>GenericLibrary</Product>
-    <AssemblyName>DKJ.GenericLibrary</AssemblyName>
+    <AssemblyName>DK.GenericLibrary</AssemblyName>
     <Configurations>Debug;Release;Publish</Configurations>
   </PropertyGroup>
 
