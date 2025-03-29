@@ -111,7 +111,7 @@ namespace DK.GenericLibrary
 			}
 		}
 		/// <inheritdoc/>
-		public List<T> GetAllForColumn<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class
+		public List<T> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class
 		{
 			using (var context = _dbContextFactory.CreateDbContext())
 			{
@@ -119,9 +119,9 @@ namespace DK.GenericLibrary
 			}
 		}
 		/// <inheritdoc/>
-		public List<T> GetAllForColumnStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct
+		public List<T> GetAllItemsStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct
 		{
-			using var context =  _dbContextFactory.CreateDbContext();
+			using var context = _dbContextFactory.CreateDbContext();
 			return queryOperation(context.Set<TEntity>()).ToList();
 		}
 		/// <inheritdoc/>
@@ -169,51 +169,5 @@ namespace DK.GenericLibrary
 			}
 		}
 
-
-
-		private void UpdateCollection<TEntity>(List<TEntity> oldList, List<TEntity> newList, Comparer<TEntity> comparer) where TEntity : class
-		{
-			using (var context = _dbContextFactory.CreateDbContext())
-			{
-				DeleteOldEntries(context, oldList, newList, comparer);
-				AddOrUpdateNewEntries(context, oldList, newList, comparer);
-				context.SaveChanges();
-			}
-		}
-
-
-		private static void DeleteOldEntries<T>(DbContext context, List<T> oldList, List<T> newList, Comparer<T> comparer) where T : class
-		{
-			// Delete entries from database that are not in the new collection
-			foreach (T oldItem in oldList)
-			{
-				if (newList == null || !newList.Any(item => comparer.Compare(item, oldItem) == 0))
-				{
-					context.Set<T>().Remove(oldItem);
-				}
-			}
-		}
-
-		private static void AddOrUpdateNewEntries<T>(DbContext context, List<T> oldList, List<T> newList,
-			Comparer<T> comparer) where T : class
-		{
-			if (newList == null)
-			{
-				return;
-			}
-			foreach (T newItem in newList)
-			{
-				T oldItem = oldList.SingleOrDefault(item => comparer.Compare(item, newItem) == 0)!;
-				if (oldItem != null)
-				{
-					context.Set<T>().Entry(oldItem).CurrentValues.SetValues(newItem);
-					context.Set<T>().Attach(oldItem).State = EntityState.Modified;
-				}
-				else
-				{
-					context.Set<T>().Add(newItem);
-				}
-			}
-		}
 	}
 }

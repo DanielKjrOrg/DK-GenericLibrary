@@ -9,19 +9,13 @@ namespace DK.GenericLibrary
 	/// Provides the implementation of the IAsyncRepository interface
 	/// </summary>
 	/// <typeparam name="TContext"></typeparam>
-	public class AsyncRepository<TContext> : IAsyncRepository<TContext> where TContext : DbContext
+	/// <remarks>
+	/// Uses IDbContextFactory to create context instances
+	/// </remarks>
+	/// <param name="_dbContextFactory"></param>
+	public class AsyncRepository<TContext>(IDbContextFactory<TContext> _dbContextFactory) : IAsyncRepository<TContext> where TContext : DbContext
 	{
-		private readonly IDbContextFactory<TContext> _dbContextFactory;
-
-
-		/// <summary>
-		/// Uses IDbContextFactory to create context instances
-		/// </summary>
-		/// <param name="dbContextFactory"></param>
-		public AsyncRepository(IDbContextFactory<TContext> dbContextFactory)
-		{
-			_dbContextFactory = dbContextFactory;
-		}
+		
 
 		/// <inheritdoc/>
 		public async Task AddItem<TEntity>(TEntity entity) where TEntity : class
@@ -103,13 +97,13 @@ namespace DK.GenericLibrary
 
 
 		/// <inheritdoc/>
-		public async Task<List<T>> GetAllForColumn<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class
+		public async Task<List<T>> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class
 		{
 			await using var context = await _dbContextFactory.CreateDbContextAsync();
 			return await Task.FromResult(queryOperation(context.Set<TEntity>()).ToList());
 		}
 		/// <inheritdoc/>
-		public async Task<List<T>> GetAllForColumnStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct
+		public async Task<List<T>> GetAllItemsStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct
 		{
 			await using var context = await _dbContextFactory.CreateDbContextAsync();
 			return await Task.FromResult(queryOperation(context.Set<TEntity>()).ToList());
@@ -133,6 +127,8 @@ namespace DK.GenericLibrary
 			await context.SaveChangesAsync();
 		}
 
+
+
 		/// <inheritdoc/>
 		public async Task UpdateItems<TEntity>(List<TEntity> items) where TEntity : class
 		{
@@ -141,18 +137,17 @@ namespace DK.GenericLibrary
 			{
 				context.Entry(item).State = EntityState.Modified;
 				foreach (NavigationEntry navigationEntry in context.Entry(item).Navigations)
-				{
+			{
 					if (navigationEntry.Metadata.IsCollection &&
 						navigationEntry.CurrentValue is IEnumerable<object> collection)
-					{
+				{
 						foreach (object entity in collection)
-						{
+					{
 							context.Entry(entity).State = EntityState.Modified;
-						}
 					}
 				}
+				}
 			}
-			await context.SaveChangesAsync();
 		}
 
 	}

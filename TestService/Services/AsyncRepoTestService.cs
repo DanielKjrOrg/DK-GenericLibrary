@@ -53,7 +53,7 @@ namespace TestService.Services
 
 		public async Task<List<string>> GetEntriesByColumn()
 		{
-			return await _repository.GetAllForColumn<BasicClass, string>(q => q.Select(x => x.TestField!));
+			return await _repository.GetAllItems<BasicClass, string>(q => q.Select(x => x.TestField!));
 		}
 
 		public async Task<List<BasicClass>> GetEntriesWithCollection()
