@@ -7,7 +7,7 @@ using static NUnit.Framework.Assert;
 
 namespace RepoUnitTests
 {
-	public class Tests 
+	public class AsyncRepoTests 
 	{
 		private ServiceProvider _serviceProvider;
 	
@@ -254,7 +254,7 @@ namespace RepoUnitTests
 			await repository.AddItem(baseClass2);
 
 			var result = await repository.GetAllItems<BasicClass>();
-			That(result.Count == 2);
+			That(result.Count, Is.EqualTo(2));
 		
 		}
 
