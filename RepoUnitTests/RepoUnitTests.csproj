@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <Reference Include="DK.GenericLibrary">
-      <HintPath>..\DK-GenericLibrary\bin\Debug\net8.0\DK.GenericLibrary.dll</HintPath>
+      <HintPath>C:\actions-runner\DK.GenericLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 
