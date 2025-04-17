@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DK-NuGet-Library\DK-NuGet-Library.csproj" />
+    <ProjectReference Include="..\DK-GenericLibrary\DK-GenericLibrary.csproj" />
   </ItemGroup>
 
 </Project>
