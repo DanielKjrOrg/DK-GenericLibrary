@@ -82,8 +82,9 @@ jobs:
 
       - name: Update .csproj version
         run: |
-          $csprojPath = "${{ github.workspace }}/**/DK-GenericLibrary.csproj"
+          $csprojPath = (Get-ChildItem -Path "${{ github.workspace }}" -Filter "DK-GenericLibrary.csproj" -Recurse).FullName
           (Get-Content $csprojPath) -replace '<Version>.*</Version>', "<Version>${{ env.NewVersion }}</Version>" | Set-Content $csprojPath
+          (Get-Content $csprojPath) -replace '<PackageReleaseNotes>*</PackageReleaseNotes>', "<PackageReleaseNotes>${{inputs.releaseMessage}}</PackageReleaseNotes>" | Set-Content $csprojPath
         
         
       - name: Build project
@@ -114,7 +115,7 @@ jobs:
           tag_name = "${{ env.NewVersion }}"
           target_commitish = "${{ github.sha }}"
           name = "${{ env.NewVersion }}"
-          body = "${{ inputs.releaseMessage }} Release of version ${{ env.NewVersion }}"
+          body = "https://www.nuget.org/packages/DK.GenericLibrary/${{ env.NewVersion }}"
           draft = $false
           prerelease = $false
           }
