@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DK-NuGet-Library", "DK-NuGet-Library\DK-NuGet-Library.csproj", "{6E96CB28-F898-4880-B8FA-CDE2B65B56D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DK-GenericLibrary", "DK-GenericLibrary\DK-GenericLibrary.csproj", "{6E96CB28-F898-4880-B8FA-CDE2B65B56D6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestService", "TestService\TestService.csproj", "{630EE9C1-8C61-4E3F-A3C7-3955D9416E8C}"
 EndProject
