@@ -1,0 +1,124 @@
+name: Publish NuGet Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_major:
+        description: 'Bump Major version'
+        required: false
+        default: false
+        type: boolean
+      bump_minor:
+        description: 'Bump Minor version'
+        required: false
+        default: false
+        type: boolean
+      bump_build:
+        description: 'Bump Build version'
+        required: false
+        default: false
+        type: boolean
+      releaseMessage:
+        description: 'Message for the publish'
+        required: false
+        type: string
+        
+defaults:
+  run:
+    shell: powershell
+    
+jobs:
+  fetch-bump-build-release:
+    runs-on: local
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+          
+      - name: Fetch latest version number from NuGet
+        run: |
+           $url = 'https://api.nuget.org/v3-flatcontainer/dk.genericlibrary/index.json'
+           $PackageInfo = Invoke-RestMethod -Uri $url -Method Get
+           $LatestVersion = $PackageInfo.versions[-1]
+           Write-Host "Latest package Version = $LatestVersion"
+           echo "currentVersion=$LatestVersion" >> $env:GITHUB_ENV
+
+
+          
+      - name: Bump Major version
+        if: ${{ github.event.inputs.bump_major == 'true' }}
+        run: |
+          $major,$minor,$build = "${{ env.currentVersion }}".Split('.')
+          $major = [int]$major + 1
+          $minor = 0
+          $build = 0
+          $NewVersion = "$major.$minor.$build"
+          Write-Host "New package Version = $NewVersion"
+          echo "NewVersion=$NewVersion" >> $env:GITHUB_ENV
+        
+
+      - name: Bump Minor version
+        if: ${{ github.event.inputs.bump_minor == 'true' }}
+        run: |
+          $major,$minor,$build = "${{ env.currentVersion }}".Split('.')
+          $minor = [int]$minor + 1
+          $build = 0
+          $NewVersion = "$major.$minor.$build"
+          Write-Host "New package Version = $NewVersion"
+          echo "NewVersion=$NewVersion" >> $env:GITHUB_ENV
+        
+
+      - name: Bump Build version
+        if: ${{ github.event.inputs.bump_build == 'true' }}
+        run: |
+          $major,$minor,$build = "${{ env.currentVersion }}".Split('.')
+          $build = [int]$build + 1
+          $NewVersion = "$major.$minor.$build"
+          Write-Host "New package Version = $NewVersion"
+          echo "NewVersion=$NewVersion" >> $env:GITHUB_ENV
+        
+
+      - name: Update .csproj version
+        run: |
+          $csprojPath = "${{ github.workspace }}/**/DK-GenericLibrary.csproj"
+          (Get-Content $csprojPath) -replace '<Version>.*</Version>', "<Version>${{ env.NewVersion }}</Version>" | Set-Content $csprojPath
+        
+        
+      - name: Build project
+        run: |
+          dotnet build ${{ github.workspace }}/DK-GenericLibrary/DK-GenericLibrary.csproj --configuration Release
+        
+      - name: Publish package
+        run: |
+          $packagePath = "${{ github.workspace }}/DK-GenericLibrary/bin/Release/DK.GenericLibrary.${{ env.NewVersion }}.nupkg"
+          dotnet nuget push $packagePath --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.APIKEY }}
+        
+
+      - name: Create GitHub tag
+        run: |
+          $tagUrl = "https://api.github.com/repos/DanielKjrOrg/DK-GenericLibrary/git/refs"
+          $tagData = @{
+          ref = "refs/tags/${{ env.NewVersion }}"
+          sha = "${{ github.sha }}"
+          }
+          $tagJson = $tagData | ConvertTo-Json
+          Invoke-RestMethod -Uri $tagUrl -Method Post -Headers @{"Authorization"="Bearer ${{ secrets.GITHUB_TOKEN }}"} -Body $tagJson
+        shell: powershell
+
+      - name: Create GitHub release
+        run: |
+          $releaseUrl = "https://api.github.com/repos/DanielKjrOrg/DK-GenericLibrary/releases"
+          $releaseData = @{
+          tag_name = "${{ env.NewVersion }}"
+          target_commitish = "${{ github.sha }}"
+          name = "${{ env.NewVersion }}"
+          body = "${{ inputs.releaseMessage }} Release of version ${{ env.NewVersion }}"
+          draft = $false
+          prerelease = $false
+          }
+          $releaseJson = $releaseData | ConvertTo-Json
+          Invoke-RestMethod -Uri $releaseUrl -Method Post -Headers @{"Authorization"="Bearer ${{ secrets.GITHUB_TOKEN }}"} -Body $releaseJson
+        shell: powershell
+
