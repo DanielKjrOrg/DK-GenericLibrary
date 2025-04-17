@@ -1,0 +1,13 @@
+name: Build & Test Pipeline
+
+on:
+  pull_request:
+    branches: master
+
+jobs:
+  callTest:
+    uses: DanielKjrOrg/RunnerTemplates/.github/workflows/runDotNetTest.yml@master
+    with:
+     test1: 'RepoTests'
+     test2: 'AsyncRepoTests'
+    
