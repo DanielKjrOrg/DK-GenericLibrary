@@ -17,14 +17,20 @@
     <AssemblyName>DK.GenericLibrary</AssemblyName>
     <Configurations>Debug;Release;Publish</Configurations>
     <PackageReleaseNotes>Something</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="docs\README.md" Pack="true" PackagePath="\" />
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="docs\" />
   </ItemGroup>
 
 </Project>
