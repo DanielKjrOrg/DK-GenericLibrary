@@ -16,6 +16,7 @@
     <Product>GenericLibrary</Product>
     <AssemblyName>DK.GenericLibrary</AssemblyName>
     <Configurations>Debug;Release;Publish</Configurations>
+    <PackageReleaseNotes>Something</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
