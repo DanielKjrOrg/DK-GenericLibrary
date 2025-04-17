@@ -84,7 +84,7 @@ jobs:
         run: |
           $csprojPath = (Get-ChildItem -Path "${{ github.workspace }}" -Filter "DK-GenericLibrary.csproj" -Recurse).FullName
           (Get-Content $csprojPath) -replace '<Version>.*</Version>', "<Version>${{ env.NewVersion }}</Version>" | Set-Content $csprojPath
-          (Get-Content $csprojPath) -replace '<PackageReleaseNotes>*</PackageReleaseNotes>', "<PackageReleaseNotes>${{inputs.releaseMessage}}</PackageReleaseNotes>" | Set-Content $csprojPath
+          (Get-Content $csprojPath) -replace '<PackageReleaseNotes>.*</PackageReleaseNotes>', "<PackageReleaseNotes>${{inputs.releaseMessage}}</PackageReleaseNotes>" | Set-Content $csprojPath
         
         
       - name: Build project
