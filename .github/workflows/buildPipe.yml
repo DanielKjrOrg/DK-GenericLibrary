@@ -1,0 +1,10 @@
+name: Build Pipeline
+
+on:
+  pull_request:
+    branches: master
+
+jobs:
+  CallBuild:
+    uses: DanielKjrOrg/RunnerTemplates/.github/workflows/buildDotNet.yml@master
+    
