@@ -1,5 +1,4 @@
-﻿using DK.GenericLibrary;
-using DK.GenericLibrary.ServiceCollection;
+﻿using DK.GenericLibrary.ServiceCollection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RepoUnitTests.Fakes;
@@ -27,11 +26,11 @@ namespace RepoUnitTests
 			else
 				services.AddTransientRepository<FakeContext>();
 
-			
+
 			//Datetime wasn't enough to make sure they had different names, so random was added
 			services.AddDbContextFactory<FakeContext>(options =>
-				options.UseInMemoryDatabase("TestDatabase"+ DateTime.Now + random.Next(1,500)));
-			 return services.BuildServiceProvider();
+				options.UseInMemoryDatabase("TestDatabase" + DateTime.Now + random.Next(1, 500)));
+			return services.BuildServiceProvider();
 		}
 
 		/// <summary>
@@ -46,9 +45,9 @@ namespace RepoUnitTests
 				services.AddScopedAsyncRepository<FakeContext>();
 			else
 				services.AddScopedRepository<FakeContext>();
-				//Datetime wasn't enough to make sure they had different names, so random was added
-				services.AddDbContextFactory<FakeContext>(options =>
-					options.UseInMemoryDatabase("TestDatabase" + DateTime.Now + random.Next(1, 500)));
+			//Datetime wasn't enough to make sure they had different names, so random was added
+			services.AddDbContextFactory<FakeContext>(options =>
+				options.UseInMemoryDatabase("TestDatabase" + DateTime.Now + random.Next(1, 500)));
 			return services.BuildServiceProvider();
 		}
 
@@ -65,9 +64,9 @@ namespace RepoUnitTests
 				services.AddSingletonAsyncRepository<FakeContext>();
 			else
 				services.AddSingletonRepository<FakeContext>();
-				//Datetime wasn't enough to make sure they had different names, so random was added
-				services.AddDbContextFactory<FakeContext>(options =>
-					options.UseInMemoryDatabase("TestDatabase" + DateTime.Now + random.Next(1, 500)));
+			//Datetime wasn't enough to make sure they had different names, so random was added
+			services.AddDbContextFactory<FakeContext>(options =>
+				options.UseInMemoryDatabase("TestDatabase" + DateTime.Now + random.Next(1, 500)));
 			return services.BuildServiceProvider();
 		}
 

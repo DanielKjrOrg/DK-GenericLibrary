@@ -1,7 +1,5 @@
 using DK.GenericLibrary;
 using DK.GenericLibrary.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.Dynamic;
 using TestService.Contexts;
 using TestService.Services;
 

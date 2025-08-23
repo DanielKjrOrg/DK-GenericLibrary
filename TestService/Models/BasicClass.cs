@@ -18,10 +18,10 @@ namespace TestService.Models
 
 		public DateTime Oprettet { get; set; }
 
-        public BasicClass()
-        {
-            Id = Guid.NewGuid();
+		public BasicClass()
+		{
+			Id = Guid.NewGuid();
 			Oprettet = DateTime.Now;
-        }
-    }
+		}
+	}
 }
