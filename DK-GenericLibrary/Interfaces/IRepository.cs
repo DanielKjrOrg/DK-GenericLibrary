@@ -109,7 +109,7 @@ namespace DK.GenericLibrary.Interfaces
 		/// <typeparam name="T"></typeparam>
 		/// <param name="queryOperation"></param>
 		/// <returns></returns>
-		List<T>GetAllItemsStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct;
+		List<T> GetAllItemsStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct;
 
 		/// <summary>
 		/// Changes TEntity reference and its' collections EntityState to Modified. Note that it will only catch 1 nested collection, anything past that can be put directly as a parameter as ut us a TEntity

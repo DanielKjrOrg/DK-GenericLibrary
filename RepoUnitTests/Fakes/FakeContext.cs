@@ -5,18 +5,18 @@ namespace RepoUnitTests.Fakes
 {
 	public class FakeContext : DbContext
 	{
-		public  DbSet<BasicClass> BasicClasses { get; set; } 
+		public DbSet<BasicClass> BasicClasses { get; set; }
 
-		public FakeContext(DbContextOptions<FakeContext> options )
+		public FakeContext(DbContextOptions<FakeContext> options)
 			: base(options)
 		{
 		}
 
-     
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			
+
 		}
 	}
 

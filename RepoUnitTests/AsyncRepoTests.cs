@@ -7,10 +7,10 @@ using static NUnit.Framework.Assert;
 
 namespace RepoUnitTests
 {
-	public class AsyncRepoTests 
+	public class AsyncRepoTests
 	{
 		private ServiceProvider _serviceProvider;
-	
+
 		[SetUp]
 		public void Setup()
 		{
@@ -78,7 +78,7 @@ namespace RepoUnitTests
 			//Assert
 			var result = await repository.GetItem<BasicClass>(q => q.Where(x => x.Id == baseClass.Id));
 			That(result != null);
-			
+
 		}
 
 		[Test]
@@ -100,7 +100,7 @@ namespace RepoUnitTests
 
 			var result = await repository.GetAllItems<BasicClass>();
 			That(result.Count == 3);
-			
+
 		}
 
 		[Test]
@@ -138,7 +138,7 @@ namespace RepoUnitTests
 			baseClass.BasicEntries.Add(new BasicEntry() { BasicClassId = baseClass.Id, ValueToLoad = "Test1" });
 
 			await repository.AddItem(baseClass);
-			
+
 			var addedItem = await repository.GetItem<BasicClass>(q => q.Where(x => x.Id == baseClass.Id));
 			That(addedItem != null);
 
@@ -209,21 +209,21 @@ namespace RepoUnitTests
 			//Assert
 			var result = await repository.GetItem<BasicClass>(q => q.Where(x => x.Id == baseClass.Id));
 			That(result?.TestField, Is.EqualTo("Test1"));
-				
+
 		}
 
 
 		[Test]
 		public async Task CanGetByExpressionWithCollection()
 		{
-		
+
 			//Create instance that is disposed of at end of function
 			//Also makes use of a specific dependency injection methodology
 			using var scope = _serviceProvider.CreateScope();
 			//use reference to create an in memory database through interface and generics
 			var repository = scope.ServiceProvider.GetRequiredService<IAsyncRepository<FakeContext>>();
 			//Create instance of class used for testing
-			var baseClass = new BasicClass { TestField = "Test1", Refnr = 1, BasicEntries = new List<BasicEntry>(){ new BasicEntry() { ValueToLoad = "Test1" } } };
+			var baseClass = new BasicClass { TestField = "Test1", Refnr = 1, BasicEntries = new List<BasicEntry>() { new BasicEntry() { ValueToLoad = "Test1" } } };
 
 			//Add item to database
 			await repository.AddItem(baseClass);
@@ -232,7 +232,7 @@ namespace RepoUnitTests
 			var result = await repository.GetItem<BasicClass>(q => q.Where(x => x.Id == baseClass.Id).Include(x => x.BasicEntries));
 			//Assert that the returned instance is the same as what we added
 			That(result.TestField, Is.EqualTo("Test1"));
-			That(result.BasicEntries.First().Id,Is.EqualTo(baseClass.BasicEntries.First().Id));
+			That(result.BasicEntries.First().Id, Is.EqualTo(baseClass.BasicEntries.First().Id));
 
 
 		}
@@ -241,7 +241,7 @@ namespace RepoUnitTests
 		[Test]
 		public async Task CanGetAllWithoutExpression()
 		{
-		
+
 			var baseClass = new BasicClass { TestField = "Test1", Refnr = 1 };
 			var baseClass2 = new BasicClass { TestField = "Test2", Refnr = 2 };
 			baseClass.BasicEntries.Add(new BasicEntry() { BasicClassId = baseClass.Id, ValueToLoad = "Test1" });
@@ -255,7 +255,7 @@ namespace RepoUnitTests
 
 			var result = await repository.GetAllItems<BasicClass>();
 			That(result.Count, Is.EqualTo(2));
-		
+
 		}
 
 		[Test]
@@ -273,9 +273,9 @@ namespace RepoUnitTests
 			await repository.AddItem(baseClass);
 			await repository.AddItem(baseClass2);
 
-			var result = await repository.GetAllItems<BasicClass>(q=> q.Where(x => x.Id == baseClass.Id));
+			var result = await repository.GetAllItems<BasicClass>(q => q.Where(x => x.Id == baseClass.Id));
 			That(result.Count == 1);
-			
+
 
 		}
 
@@ -312,7 +312,7 @@ namespace RepoUnitTests
 				new BasicClass { TestField = "Test3", Refnr = 3 }
 			};
 			var bclass = basicClassList.First();
-			bclass.BasicEntries.Add(new BasicEntry() { ValueToLoad = "something" } );
+			bclass.BasicEntries.Add(new BasicEntry() { ValueToLoad = "something" });
 
 
 			using var scope = _serviceProvider.CreateScope();
