@@ -296,7 +296,7 @@ namespace RepoUnitTests
 			await repository.AddItems(basicClassList);
 
 			List<string> result = await repository.GetAllItems<BasicClass, string>(x => x.Select(s => s.TestField)!);
-			List<int> test2Result = await repository.GetAllItemsStruct<BasicClass, int>(x => x.Select(s => s.Refnr));
+			List<int> test2Result = await repository.GetAllItems<BasicClass, int>(x => x.Select(s => s.Refnr));
 			That(result.Count == 3);
 			That(test2Result.Count == 3 && test2Result.First() == 1);
 		}

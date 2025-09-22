@@ -82,17 +82,12 @@ namespace DK.GenericLibrary
 				: context.Set<TEntity>().AsNoTracking().ToList();
 		}
 		/// <inheritdoc/>
-		public List<T> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class
+		public List<T> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class 
 		{
 			using var context = dbContextFactory.CreateDbContext();
 			return queryOperation(context.Set<TEntity>().AsNoTracking()).ToList();
 		}
-		/// <inheritdoc/>
-		public List<T> GetAllItemsStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct
-		{
-			using var context = dbContextFactory.CreateDbContext();
-			return queryOperation(context.Set<TEntity>().AsNoTracking()).ToList();
-		}
+
 		/// <inheritdoc/>
 		public void UpdateItem<TEntity>(TEntity item) where TEntity : class
 		{

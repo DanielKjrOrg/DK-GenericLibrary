@@ -97,17 +97,12 @@ namespace DK.GenericLibrary
 
 
 		/// <inheritdoc/>
-		public async Task<List<T>> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class
+		public async Task<List<T>> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class 
 		{
 			await using var context = await dbContextFactory.CreateDbContextAsync();
 			return await Task.FromResult(queryOperation(context.Set<TEntity>().AsNoTracking()).ToList());
 		}
-		/// <inheritdoc/>
-		public async Task<List<T>> GetAllItemsStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct
-		{
-			await using var context = await dbContextFactory.CreateDbContextAsync();
-			return await Task.FromResult(queryOperation(context.Set<TEntity>().AsNoTracking()).ToList());
-		}
+
 		/// <inheritdoc/>
 		public async Task UpdateItem<TEntity>(TEntity item) where TEntity : class
 		{
