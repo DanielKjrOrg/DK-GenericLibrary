@@ -26,9 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="DK.GenericLibrary">
-			<HintPath>C:\actions-runner\DK.GenericLibrary.dll</HintPath>
-		</Reference>
+	  <ProjectReference Include="..\DK-GenericLibrary\DK-GenericLibrary.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

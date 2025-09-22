@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
-
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("RepoUnitTests.RepoUnitTests")]
 namespace DK.GenericLibrary
 {
 
@@ -10,7 +11,7 @@ namespace DK.GenericLibrary
 	/// Provides the implementation of the IRepository interface
 	/// </summary>
 	/// <typeparam name="TContext"></typeparam>
-	public class Repository<TContext>(IDbContextFactory<TContext> dbContextFactory) : IRepository<TContext> where TContext : DbContext
+	internal class Repository<TContext>(IDbContextFactory<TContext> dbContextFactory) : IRepository<TContext> where TContext : DbContext
 	{
 
 

@@ -15,9 +15,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<RepoTestService>();
 builder.Services.AddTransient<AsyncRepoTestService>();
 
-builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddTransient(typeof(IRepository<>));
 
-builder.Services.AddTransient(typeof(IAsyncRepository<>), typeof(AsyncRepository<>));
+builder.Services.AddTransient(typeof(IAsyncRepository<>));
 builder.Services.AddDbContextFactory<TestContext>();
 
 

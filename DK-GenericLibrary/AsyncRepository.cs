@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
-
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("RepoUnitTests.AsyncRepoTests")]
 namespace DK.GenericLibrary
 {
 	/// <summary>
@@ -13,7 +14,7 @@ namespace DK.GenericLibrary
 	/// Uses IDbContextFactory to create context instances
 	/// </remarks>
 	/// <param name="dbContextFactory"></param>
-	public class AsyncRepository<TContext>(IDbContextFactory<TContext> dbContextFactory) : IAsyncRepository<TContext> where TContext : DbContext
+	internal class AsyncRepository<TContext>(IDbContextFactory<TContext> dbContextFactory) : IAsyncRepository<TContext> where TContext : DbContext
 	{
 
 

@@ -7,7 +7,7 @@ using static NUnit.Framework.Assert;
 
 namespace RepoUnitTests
 {
-	public class AsyncRepoTests
+	internal class AsyncRepoTests
 	{
 		private ServiceProvider _serviceProvider;
 
