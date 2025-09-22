@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
-
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("RepoUnitTests.AsyncRepoTests")]
 namespace DK.GenericLibrary
 {
 	/// <summary>
@@ -13,7 +14,7 @@ namespace DK.GenericLibrary
 	/// Uses IDbContextFactory to create context instances
 	/// </remarks>
 	/// <param name="dbContextFactory"></param>
-	public class AsyncRepository<TContext>(IDbContextFactory<TContext> dbContextFactory) : IAsyncRepository<TContext> where TContext : DbContext
+	internal class AsyncRepository<TContext>(IDbContextFactory<TContext> dbContextFactory) : IAsyncRepository<TContext> where TContext : DbContext
 	{
 
 
@@ -97,17 +98,12 @@ namespace DK.GenericLibrary
 
 
 		/// <inheritdoc/>
-		public async Task<List<T>> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class
+		public async Task<List<T>> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class 
 		{
 			await using var context = await dbContextFactory.CreateDbContextAsync();
 			return await Task.FromResult(queryOperation(context.Set<TEntity>().AsNoTracking()).ToList());
 		}
-		/// <inheritdoc/>
-		public async Task<List<T>> GetAllItemsStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct
-		{
-			await using var context = await dbContextFactory.CreateDbContextAsync();
-			return await Task.FromResult(queryOperation(context.Set<TEntity>().AsNoTracking()).ToList());
-		}
+
 		/// <inheritdoc/>
 		public async Task UpdateItem<TEntity>(TEntity item) where TEntity : class
 		{

@@ -112,20 +112,7 @@ namespace DK.GenericLibrary.Interfaces
 		/// <typeparam name="T">Expected return type</typeparam>
 		/// <param name="queryOperation">IQueryable expression</param>
 		/// <returns>List{T}</returns>
-		Task<List<T>> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : class;
-
-		/// <summary>
-		/// Returns T from DbSet matching type parameter.
-		/// <para>Used to retrieve struct data types</para>
-		/// <para>
-		/// <![CDATA[Example: _repository.GetAllForColumn<TEntity, int>(q => q.Select(x => x.PropertyName))]]>
-		/// </para>
-		/// </summary>
-		/// <typeparam name="TEntity"></typeparam>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="queryOperation"></param>
-		/// <returns></returns>
-		Task<List<T>> GetAllItemsStruct<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class where T : struct;
+		Task<List<T>> GetAllItems<TEntity, T>(Func<IQueryable<TEntity>, IQueryable<T>> queryOperation) where TEntity : class;
 
 		/// <summary>
 		/// Changes TEntity reference and its' collections EntityState to Modified. Note that it will only catch 1 nested collection, anything past that can be put directly as a parameter as ut us a TEntity

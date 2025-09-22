@@ -10,7 +10,7 @@ namespace RepoUnitTests
 	/// <summary>
 	/// Static class to provide a service provider for testing
 	/// </summary>
-	public static class TestServiceProvider
+	internal static class TestServiceProvider
 	{
 
 		/// <summary>
@@ -29,7 +29,7 @@ namespace RepoUnitTests
 
 			//Datetime wasn't enough to make sure they had different names, so random was added
 			services.AddDbContextFactory<FakeContext>(options =>
-				options.UseInMemoryDatabase("TestDatabase" + DateTime.Now + random.Next(1, 500)));
+				options.UseInMemoryDatabase("TestDatabase" + Guid.NewGuid()));
 			return services.BuildServiceProvider();
 		}
 
@@ -47,7 +47,7 @@ namespace RepoUnitTests
 				services.AddScopedRepository<FakeContext>();
 			//Datetime wasn't enough to make sure they had different names, so random was added
 			services.AddDbContextFactory<FakeContext>(options =>
-				options.UseInMemoryDatabase("TestDatabase" + DateTime.Now + random.Next(1, 500)));
+				options.UseInMemoryDatabase("TestDatabase" + Guid.NewGuid()));
 			return services.BuildServiceProvider();
 		}
 
@@ -66,7 +66,7 @@ namespace RepoUnitTests
 				services.AddSingletonRepository<FakeContext>();
 			//Datetime wasn't enough to make sure they had different names, so random was added
 			services.AddDbContextFactory<FakeContext>(options =>
-				options.UseInMemoryDatabase("TestDatabase" + DateTime.Now + random.Next(1, 500)));
+				options.UseInMemoryDatabase("TestDatabase" + Guid.NewGuid()));
 			return services.BuildServiceProvider();
 		}
 
