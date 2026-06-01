@@ -41,7 +41,7 @@ namespace RepoUnitTests
 			var dbContextFactory = scope.GetService<IDbContextFactory<FakeContext>>();
 			var context = await dbContextFactory!.CreateDbContextAsync();
 			var created = await context.Database.EnsureCreatedAsync();
-			True(created);
+			That(created);
 		}
 		[Test]
 		public async Task CanUseAsyncTransientServiceProvider()
@@ -50,7 +50,7 @@ namespace RepoUnitTests
 			var dbContextFactory = scope.GetService<IDbContextFactory<FakeContext>>();
 			var context = await dbContextFactory!.CreateDbContextAsync();
 			var created = await context.Database.EnsureCreatedAsync();
-			True(created);
+			That(created);
 		}
 		[Test]
 		public async Task CanUseAsyncSingletonServiceProvider()
@@ -59,7 +59,7 @@ namespace RepoUnitTests
 			var dbContextFactory = scope.GetService<IDbContextFactory<FakeContext>>();
 			var context = await dbContextFactory!.CreateDbContextAsync();
 			var created = await context.Database.EnsureCreatedAsync();
-			True(created);
+			That(created);
 		}
 
 

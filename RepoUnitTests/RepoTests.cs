@@ -31,7 +31,7 @@ namespace RepoUnitTests
 			var dbContextFactory = scope.GetService<IDbContextFactory<FakeContext>>();
 			var context = dbContextFactory!.CreateDbContext();
 			var created = context.Database.EnsureCreated();
-			True(created);
+			That(created);
 		}
 		[Test]
 		public void CanUseTransientServiceProvider()
@@ -40,7 +40,7 @@ namespace RepoUnitTests
 			var dbContextFactory = scope.GetService<IDbContextFactory<FakeContext>>();
 			var context = dbContextFactory!.CreateDbContext();
 			var created = context.Database.EnsureCreated();
-			True(created);
+			That(created);
 		}
 
 		[Test]
@@ -50,7 +50,7 @@ namespace RepoUnitTests
 			var dbContextFactory = scope.GetService<IDbContextFactory<FakeContext>>();
 			var context = dbContextFactory!.CreateDbContext();
 			var created = context.Database.EnsureCreated();
-			True(created);
+			That(created);
 		}
 		[Test]
 		public void CanAdd()
